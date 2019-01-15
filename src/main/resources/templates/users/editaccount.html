@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{fragments/layout}">
+<head>
+    <meta charset="UTF-8">
+    <title>Account</title>
+</head>
+<body>
+<div layout:fragment="content" class="box box-primary">
+    <section class="content-header">
+        <h1>
+            Setting
+            <small>Change Password</small>
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content" style="margin-top:10px">
+        <div class="box box-primary">
+            <div class="box-body">
+                <form id="userForm" action="#" th:action="@{/users/editaccount}" th:object="${userForm}" method="post">
+                    <div class="box-body">
+                        <div class="form-group" th:classappend="${#fields.hasErrors('oldPass')} ? 'has-error' : ''">
+                            <label>Old password:</label>
+                            <input th:field="*{oldPass}" type="password" class="form-control pull-right">
+                            <span th:if="${#fields.hasErrors('oldPass')}" class="help-block" th:errors="*{oldPass}"></span>
+                        </div>
+                        <div class="form-group" th:classappend="${#fields.hasErrors('newPass')} ? 'has-error' : ''">
+                            <label>New password:</label>
+                            <input th:field="*{newPass}" type="password" class="form-control pull-right">
+                            <span th:if="${#fields.hasErrors('newPass')}" class="help-block" th:errors="*{newPass}"></span>
+                        </div>
+                        <div class="form-group">
+                            <label>ReNew password:</label>
+                            <input id="reNewPass" type="password" class="form-control pull-right">
+                        </div>
+                    </div>
+                    <div class="box-footer">
+                        <button type="button" onclick="checkValid(event)" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+<th:block layout:fragment="js">
+    <script>
+        function validate(element, valid, message){
+            if(valid){
+                element.parent().removeClass('has-error');
+                element.parent().children('span').remove();
+            }else{
+                element.parent().addClass('has-error');
+                element.parent().append('<span class="help-block">' + message + '</span>');
+            }
+        }
+
+        function checkValid() {
+            var oldPass = $('input[name=oldPass]');
+            var newPass = $('input[name=newPass]');
+            var reNewPass = $('#reNewPass');
+
+            if(newPass.val().length < 6){
+                validate(newPass, false, "Password to short!");
+            }else{
+                validate(newPass, true);
+            }
+
+            if(reNewPass.val().length < 6){
+                validate(reNewPass, false, "Password to short!");
+            }else{
+                validate(reNewPass, true);
+            }
+
+            if(newPass.val() !== reNewPass.val()){
+                validate(reNewPass, false, "Re password no match with new password");
+            }else{
+                validate(reNewPass, true);
+            }
+
+            if(newPass.find('span').length === 0 && reNewPass.find('span').length === 0){
+                $('#userForm').submit();
+            }
+        }
+
+
+    </script>
+</th:block>
+</body>
+</html>

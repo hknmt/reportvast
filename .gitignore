@@ -1,0 +1,31 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Maven template
+target/
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+### Example user template template
+### Example user template
+
+# IntelliJ project files
+.idea
+*.iml
+out
+gen
+.idea/
+.mvn/
+mvnw
+mvnw.cmd
+reportvast.iml
+*.md
+src/**/.gitignore
+src/**/*.json
+src/**/.jshintignore
+src/**/*.map
+/src/test/
+/src/main/resources/static/bower_components/bootstrap/Gemfile.lock
+/src/main/resources/static/bower_components/bootstrap/Gemfile
+/src/main/resources/static/bower_components/bootstrap/Gruntfile.js
+/src/main/resources/static/bower_components/bootstrap/package.js
